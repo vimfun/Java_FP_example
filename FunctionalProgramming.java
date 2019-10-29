@@ -8,6 +8,13 @@ class FunctionalProgramming {
 
         Map<String, Class> ctm = new HashMap<String, Class>();
 
+        addModelFields(ctm);
+
+        System.out.printf("ctm  ->  ");
+        System.out.println(ctm);
+    }
+
+    public static void addModelFields(Map<String, Class> ctm) {
         Array<String> fields = Array.of( "pay_time", "created_time" );
 
         Map<String, Class> _ctm = fields.toJavaStream()
@@ -31,8 +38,5 @@ class FunctionalProgramming {
             );
 
         ctm.putAll( _ctm );
-
-        System.out.printf("ctm  ->  ");
-        System.out.println(ctm);
     }
 }
