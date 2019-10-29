@@ -1,4 +1,6 @@
 import java.util.*;
+import java.util.function.Consumer;
+import java.util.function.Function;
 import io.vavr.collection.Array;
 import io.vavr.Tuple2;
 
@@ -23,18 +25,18 @@ class FunctionalProgramming {
     }
 
     public static Map<String, Class> addModelFields(Map<String, Class> ctm) {
-        Array<String> fields = Array.of( "pay_time", "created_time" );
-        Map<String, Class> ctm2 = new HashMap<>();
-        ctm2.putAll(ctm);
-        fields.forEach(f -> ctm2.put(f, String.class));
-        return ctm2;
+        return modifyModelFields(ctm, ctm2 -> f -> ctm2.put(f, String.class));
     }
 
     public static Map<String, Class> removeModelFields(Map<String, Class> ctm) {
+        return modifyModelFields(ctm, ctm2 -> f -> ctm2.remove(f));
+    }
+
+    private static Map<String, Class> modifyModelFields(Map<String, Class> ctm, Function<Map<String, Class>, Consumer<String>> ffn) {
         Array<String> fields = Array.of( "pay_time", "created_time" );
         Map<String, Class> ctm2 = new HashMap<>();
         ctm2.putAll(ctm);
-        fields.forEach(f -> ctm2.remove(f));
+        fields.forEach( ffn.apply(ctm2) );
         return ctm2;
     }
 }
