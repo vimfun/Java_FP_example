@@ -9,9 +9,9 @@ class FunctionalProgramming {
 
         Array<String> fields = Array.of( "pay_time", "created_time" );
 
-        for (String f : fields) {
-            ctm.put(f, String.class);
-        }
+        fields.forEach(
+            f -> ctm.put(f, String.class)
+        );
 
         System.out.printf("ctm  ->  ");
         System.out.println(ctm);
